@@ -94,6 +94,7 @@ get_password() {
           IFS=":" read -r username password <<< "$decrypted_entry"
           echo "Username: $username"
           echo "Password: $password"
+
           echo "---"
         else
             echo "Decryption failed for entry."
@@ -138,8 +139,7 @@ if [ ! -f "$MASTER_PASSWORD_FILE" ]; then
   echo "Master password not set. Please set it now."
   set_master_password
 else
-  check_master_password
-  if [ $? -ne 0 ]; then
+  if ! check_master_password; then
     echo "Exiting due to incorrect master password."
     exit 1
   fi
