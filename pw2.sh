@@ -138,7 +138,8 @@ if [ ! -f "$MASTER_PASSWORD_FILE" ]; then
   echo "Master password not set. Please set it now."
   set_master_password
 else
-  if ! check_master_password; then
+  check_master_password
+  if [ $? -ne 0 ]; then
     echo "Exiting due to incorrect master password."
     exit 1
   fi
